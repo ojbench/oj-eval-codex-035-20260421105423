@@ -323,15 +323,15 @@ public:
         const char* get() const { return ptr_; }
     };
 
-    // cross comparisons
-    inline bool iterator::operator==(const const_iterator& other) const { return ptr_ == other.get(); }
-    inline bool iterator::operator!=(const const_iterator& other) const { return ptr_ != other.get(); }
-
 public:
     iterator begin() { return iterator(const_cast<char*>(data_ptr())); }
     iterator end() { return iterator(const_cast<char*>(data_ptr()) + len_); }
     const_iterator cbegin() const { return const_iterator(data_ptr()); }
     const_iterator cend() const { return const_iterator(data_ptr() + len_); }
 };
+
+// cross comparisons definitions for nested iterator types
+inline bool MyString::iterator::operator==(const MyString::const_iterator& other) const { return ptr_ == other.get(); }
+inline bool MyString::iterator::operator!=(const MyString::const_iterator& other) const { return ptr_ != other.get(); }
 
 #endif
